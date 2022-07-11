@@ -4,13 +4,15 @@ let ChangeElementImg = "";
 let ChangeElementH3 = "";
 let ChangeElementP = "";
 
+
+
 const creationFicheProduit = () => {
 
   // creation de l'élement <a>
   const newElementLienA = document.createElement("a");
   document.getElementById("items")
     .appendChild(newElementLienA)
-    .setAttribute('href', './product.html');
+    .setAttribute('href', urlElementA);
     newElementLienA.setAttribute('id', ChangeElementId);
 
   // creation de l'élement <article>
@@ -59,9 +61,14 @@ fetch('http://localhost:3000/api/products')
         ChangeElementImg = value[numberIndex].imageUrl;
         ChangeElementH3 = value[numberIndex].name;
         ChangeElementP = value[numberIndex].description;
+  
+       // injecte l'id dans l'url du <a> en utilisant la propriété hash de URL
+       urlElementA =`http://127.0.0.1:5500/front/html/product.html#${ChangeElementId}`;
+      
        // incremente pour faire fonctionner la boucle
         ++numberIndex;
-      // execute la fonction en injectant les données de l'API
+      
+        // execute la fonction en injectant les données de l'API
         creationFicheProduit();    
    }
 
