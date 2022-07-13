@@ -45,7 +45,7 @@ const creationFicheProduit = () => {
     document.querySelector("#description")
         .innerHTML = ChangeElementP;
 
-  // Ajout de la premiere option couleur "SVP, choisissez une couleur"
+  // Ajout de la premiere option "generique" couleur "SVP, choisissez une couleur"
   const newElementOption = document.createElement("option");
   document.querySelector("#colors")
       .appendChild(newElementOption)
@@ -63,7 +63,6 @@ const ajoutCouleursSelectionnables = () => {
         .appendChild(newElementOption)
         .setAttribute("value", ChangeElementColor);
         newElementOption.innerHTML = ChangeElementColor;
-        console.log(newElementOption);
 };
 
 
@@ -77,9 +76,7 @@ fetch(`http://localhost:3000/api/products/${idProduit}`)
 
     .then(function (value) {
 
-        console.log(value.colors);
-
-        // recuperation des données dans l API  
+        // recuperation des données dans l API et on les charges dans les variables  
         ChangeElementId = value._id;
         ChangeElementImg = value.imageUrl;
         ChangeElementH1 = value.name;
@@ -111,3 +108,52 @@ fetch(`http://localhost:3000/api/products/${idProduit}`)
 
 
 
+ // VIDER LE LOCAL STORAGE
+
+      // localStorage.clear();
+
+    console.log(localStorage);
+
+    
+ // AJOUT AU PANIER - LOCALSTORAGE
+
+ let quantiteProduit = "";
+ let couleurProduit = "";
+ let numeroAjoutArticle = "";
+
+
+
+// on ECOUTE le boutton et on charge au "clic" les input dans les variables
+ const ajoutPanier = document.getElementById('addToCart')
+ .addEventListener('click', function() {        
+
+    quantiteProduit = document.getElementById("quantity").value;     
+    couleurProduit = document.getElementById("colors").value;  
+
+    console.log(quantiteProduit);
+    console.log(couleurProduit);
+    
+    // on AJOUTE les variables chargées dans le local storage
+
+    if ((quantiteProduit == 0) || (couleurProduit == 0)) {
+
+        alert("il manque la quantité ou la couleur du produit")
+
+    }else{
+      
+        const ajoutArticle = [idProduit, quantiteProduit, couleurProduit];
+
+        localStorage.setItem(`ajoutArticle${idProduit+numeroAjoutArticle}`, ajoutArticle);
+
+        numeroAjoutArticle = ++numeroAjoutArticle;
+
+        console.log(ajoutArticle);
+        console.log(localStorage);
+
+      
+    };
+ });
+     
+   
+
+  
