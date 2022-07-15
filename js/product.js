@@ -1,159 +1,97 @@
-//URL
-// recupere url avec l'id du produit
-const url = new URL(document.location.href);
-// on separe l'id de l Url
-const idUrlHash = url.hash
-// on supprime le # de l'id recupéré
-const idProduit = idUrlHash.slice(1)
+
+ // on crée la FONCTION qui recupere l'ID dans l'URL
+const recupId = () => {
+  //on recupere url du produit
+  const url = new URL(document.location.href);
+  // on recupere l'id dans l'Url
+  const idProduit = url.searchParams.get("id")
+  return idProduit;
+}
 
 
-// creation des const modificatives  
-let ChangeElementId = "";
-let ChangeElementImg = "";
-let ChangeElementH1 = "";
-let ChangeElementPrice = "";
-let ChangeElementP = "";
-let ChangeElementColor = "";
+///on crée la FONCTION qui récupère la CARD CANAPE dans la base de donnée et l'ijecte dans le HTML
+const showListProduct = async () => {
+
+  // on execute la FONCTION recupId qu'on charge dans la variable idProduit
+  const idProduit = recupId();
+
+  // on recupere les datas avec la FONCTION getCanap
+  const datas = await getCanap(`http://localhost:3000/api/products/${idProduit}`);
+
+  console.log("datas", datas);
+  // on charge les datas dans les variables  
+  const ImgProduit = `<img src=${datas.imageUrl} alt="Photographie d'un canapé">`;
+  const NomProduit = `${datas.name}`;
+  const PrixProduit = `${datas.price}`;
+  const DescriptionProduit = `${datas.description}`;
+
+  // on injecte les datas dans le code HTML
+  document.querySelector(".item__img").innerHTML = ImgProduit;
+  document.querySelector("#title").innerHTML = NomProduit;
+  document.querySelector("#price").innerHTML = PrixProduit;
+  document.querySelector("#description").innerHTML = DescriptionProduit;
+
+  // on injecte les couleurs séléctionnables dans le code HTML avec +=
+   for (color of datas.colors) {
+    const addOptionCouleur = `<option value="${color}">${color}</option>`;
+    document.querySelector("#colors").innerHTML += addOptionCouleur;
+  } ;
 
 
-//FONCTION vider les anciennes couleurs
-const viderCouleursSelectionnables = () => {
-    const options = document.querySelectorAll('#colors option');
-    for (let option of options)
-    option.remove();
-};
+}
 
-//FONCTION creation fiche produit
-const creationFicheProduit = () => {
-
-    // Ajout de l'image <Img>
-    const newElementImg = document.createElement("img");
-    document.querySelector(".item__img")
-        .appendChild(newElementImg)
-        .setAttribute("src", ChangeElementImg);
-    newElementImg.setAttribute('alt', 'Lorem ipsum dolor sit amet, Kanap name1');
-
-    // Ajout du contenu du TITRE <h1>
-    document.querySelector("#title")
-        .innerHTML = ChangeElementH1;
-
-    // Ajout du prix <price>
-    document.querySelector("#price")
-        .innerHTML = ChangeElementPrice;
-
-    // Ajout de la description <p>
-    document.querySelector("#description")
-        .innerHTML = ChangeElementP;
-
-  // Ajout de la premiere option "generique" couleur "SVP, choisissez une couleur"
-  const newElementOption = document.createElement("option");
-  document.querySelector("#colors")
-      .appendChild(newElementOption)
-      .setAttribute("value", "");
-      newElementOption.innerHTML = "--SVP, choisissez une couleur --";
-
-};
-
-
-//FONCTION ajout Couleurs Selectionnables à la fiche produit
-const ajoutCouleursSelectionnables = () => {
-
-    const newElementOption = document.createElement("option");
-    document.querySelector("#colors")
-        .appendChild(newElementOption)
-        .setAttribute("value", ChangeElementColor);
-        newElementOption.innerHTML = ChangeElementColor;
-};
-
-
-// on recupere l'objet du produit sélectionné <p>
-fetch(`http://localhost:3000/api/products/${idProduit}`)
-    .then(function (res) {
-        if (res.ok) {
-            return res.json();
-        }
-    })
-
-    .then(function (value) {
-
-        // recuperation des données dans l API et on les charges dans les variables  
-        ChangeElementId = value._id;
-        ChangeElementImg = value.imageUrl;
-        ChangeElementH1 = value.name;
-        ChangeElementPrice = value.price;
-        ChangeElementP = value.description;
-       
-         // VIDER anciennes couleurs
-         viderCouleursSelectionnables ();
-
-        // execute la fonction en injectant les données de l'API
-        creationFicheProduit();
-
-         //RECUPERATION DES COULEURS AVEC UNE BOUCLE
-        // initialise numberIndexColors pour la boucle 
-        let numberIndexColor = 0;
-        for (let color of value.colors) {
-          // recuperation des données dans l API 
-            ChangeElementColor = value.colors[numberIndexColor];
-
-            // ajoute les nouvelles couleurs
-            ajoutCouleursSelectionnables();
-            ++numberIndexColor;
-        }
-
-    })
-    .catch(function (err) {
-        // Une erreur est survenue
-    });
+ 
+  // on execute la FONCTION
+showListProduct();
 
 
 
- // VIDER LE LOCAL STORAGE
 
-      // localStorage.clear();
+// VIDER LE LOCAL STORAGE
 
-    console.log(localStorage);
+// localStorage.clear();
 
-    
- // AJOUT AU PANIER - LOCALSTORAGE
+console.log(localStorage);
 
- let quantiteProduit = "";
- let couleurProduit = "";
- let numeroAjoutArticle = "";
+
+// AJOUT AU PANIER - LOCALSTORAGE
+
+let quantiteProduit = "";
+let couleurProduit = "";
+let numeroAjoutArticle = "";
 
 
 
 // on ECOUTE le boutton et on charge au "clic" les input dans les variables
- const ajoutPanier = document.getElementById('addToCart')
- .addEventListener('click', function() {        
+const ajoutPanier = document.getElementById('addToCart')
+  .addEventListener('click', function () {
 
-    quantiteProduit = document.getElementById("quantity").value;     
-    couleurProduit = document.getElementById("colors").value;  
+    quantiteProduit = document.getElementById("quantity").value;
+    couleurProduit = document.getElementById("colors").value;
 
     console.log(quantiteProduit);
     console.log(couleurProduit);
-    
+
     // on AJOUTE les variables chargées dans le local storage
 
     if ((quantiteProduit == 0) || (couleurProduit == 0)) {
 
-        alert("il manque la quantité ou la couleur du produit")
+      alert("il manque la quantité ou la couleur du produit")
 
-    }else{
-      
-        const ajoutArticle = [idProduit, quantiteProduit, couleurProduit];
+    } else {
 
-        localStorage.setItem(`ajoutArticle${idProduit+numeroAjoutArticle}`, ajoutArticle);
+      const ajoutArticle = [idProduit, quantiteProduit, couleurProduit];
 
-        numeroAjoutArticle = ++numeroAjoutArticle;
+      localStorage.setItem(`ajoutArticle${idProduit + numeroAjoutArticle}`, ajoutArticle);
 
-        console.log(ajoutArticle);
-        console.log(localStorage);
+      numeroAjoutArticle = ++numeroAjoutArticle;
 
-      
+      console.log(ajoutArticle);
+      console.log(localStorage);
+
+
     };
- });
-     
-   
+  });
 
-  
+
+
