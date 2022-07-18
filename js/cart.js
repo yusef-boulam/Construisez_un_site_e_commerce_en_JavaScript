@@ -1,8 +1,7 @@
+console.log(localStorage)
 
-
-const test = (a,b) => {
-  return a + b
-};
-
-const test1 = test(1,4);
-console.log(test1);
+//FONCTION qui charge le tableau depuis le local storage 
+const chargeArrayPanier = () => { 
+    const arrayPanier = JSON.parse(localStorage.arrayPanier);
+     return arrayPanier
+  }
