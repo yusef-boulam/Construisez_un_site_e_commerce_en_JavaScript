@@ -52,7 +52,7 @@ showListProduct()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // VIDER LE LOCAL STORAGE
-  // localStorage.clear();
+    // localStorage.clear();
 
 console.log(localStorage)
 
@@ -103,6 +103,7 @@ const rechercheProduitIdentique = (arrayPanier, idProduitInput, couleurProduitIn
 
 // FONCTION qui modifie la quantité sur l'objet existant dans le tableau
 const modifieObjetPanier = (arrayPanier, arrayProduitIdentique, idProduitInput, couleurProduitInput, quantiteProduitInput) => {
+
   // on recupere l'index du produit identique dans le tableau
   const indexproduit = arrayPanier.findIndex(element => (element.idProduit === idProduitInput)
     && (element.couleurProduit === couleurProduitInput))
@@ -110,19 +111,19 @@ const modifieObjetPanier = (arrayPanier, arrayProduitIdentique, idProduitInput, 
   console.log("arrayPanierORIGINAL", arrayPanier)
   console.log(arrayProduitIdentique)
   console.log(indexproduit)
+
   //on calcule la nouvelle quantité
   let quantiteTotale = arrayProduitIdentique[0].quantiteProduit + quantiteProduitInput
 
 // on ajoute le nouvel objet dans le tableau
   const newObjet = newObjetPanier(idProduitInput, couleurProduitInput, quantiteTotale)
-  const newArrayPanier = pushObjetPanier(arrayPanier, newObjet)
+  let newArrayPanier = pushObjetPanier(arrayPanier, newObjet)
   console.log(newArrayPanier)
   
   // on supprime l ancien objet dans le tableau
-  // newArrayPanier = arrayPanier.splice(0, indexproduit,);
-
+  newArrayPanier = newArrayPanier.splice(indexproduit, 1);
+  console.log(newArrayPanier)
   
-
   return newArrayPanier
 }
 
