@@ -1,25 +1,27 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //INSERER LES DETAILS CANAPE SELECTIONNE DANS LA PAGE
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// on crée la FONCTION qui recupere l'ID dans l'URL
+// on crée la FONCTION qui recupere l'ID dans l'URL  ////////////////////////////////////////////////////////////////////////
 const recupId = () => {
   //on recupere url du produit
-  const url = new URL(document.location.href)
+  const url = new URL(document.location.href);
   // on recupere l'id dans l'Url
-  const idProduit = url.searchParams.get("id")
+  const idProduit = url.searchParams.get("id");
   return idProduit
 }
 
 
-///on crée la FONCTION qui récupère la CARD CANAPE dans la base de donnée et l'ijecte dans le HTML
+///on crée la FONCTION qui récupère la CARD CANAPE dans la base de donnée et l'ijecte dans le HTML//////////////////////////////
 const showListProduct = async () => {
 
   // on execute la FONCTION recupId qu'on charge dans la variable idProduit
-  const idProduit = recupId()
+  const idProduit = recupId();
 
   // on recupere les datas avec la FONCTION getCanap
-  const datas = await getCanap(`http://localhost:3000/api/products/${idProduit}`)
+  const datas = await getCanap(`http://localhost:3000/api/products/${idProduit}`);
 
 
   // on charge les datas dans les variables
@@ -41,8 +43,8 @@ const showListProduct = async () => {
   };
 }
 
-// on execute la FONCTION
-showListProduct()
+// on execute la FONCTION///////////////////////////////////////////////////////////////////////////////////////
+showListProduct();
 
 
 
@@ -50,24 +52,24 @@ showListProduct()
 //AJOUT PANIER
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// VIDER LE LOCAL STORAGE
-  // localStorage.clear();
+// VIDER LE LOCAL STORAGE/////////////////////////////////////////////////////////////////////////////////////////////////////
+//  localStorage.clear();
 
-console.log(localStorage)
+console.log("localStorage", localStorage)
 
-
-//FONCTION sauvegarde le tableau dans le local storage 
+//FONCTION sauvegarde le tableau dans le local storage ///////////////////////////////////////////////////////////////////////
 const SauvegardeLocalStorage = (arrayPanier) => {
-  localStorage.arrayPanier = (JSON.stringify(arrayPanier))
+  localStorage.arrayPanier = (JSON.stringify(arrayPanier));
 }
 
-//FONCTION qui charge le tableau depuis le local storage 
+//FONCTION qui charge le tableau depuis le local storage /////////////////////////////////////////////////////////////////////
 const chargeArrayPanier = () => {
   const arrayPanier = JSON.parse(localStorage.arrayPanier);
+  console.log(arrayPanier);
   return arrayPanier
 }
 
-// FONCTION on crée un nouvel objet en chargeant les inputs
+// FONCTION on crée un nouvel objet en chargeant les inputs///////////////////////////////////////////////////////////////////
 const newObjetPanier = (idProduitInput, couleurProduitInput, quantiteProduitInput) => {
   // On crée une classe
   class objetPanier {
@@ -78,63 +80,52 @@ const newObjetPanier = (idProduitInput, couleurProduitInput, quantiteProduitInpu
     }
   }
   // et on crée un nouvel objet avec les inputs
-  const newObjetPanier = new objetPanier(idProduitInput, couleurProduitInput, quantiteProduitInput)
+  const newObjetPanier = new objetPanier(idProduitInput, couleurProduitInput, quantiteProduitInput);
   return newObjetPanier
 }
 
-// FONCTION qui ajoute le nouvel objet dans le tableau
+// FONCTION qui ajoute le nouvel objet dans le tableau///////////////////////////////////////////////////////////////////////
 const pushObjetPanier = (arrayPanier, newObjetPanier) => {
   // On ajoute l'objet crée dans tableau
-  arrayPanier.push(newObjetPanier)
-  console.log(arrayPanier)
+  arrayPanier.push(newObjetPanier);
   return arrayPanier
 }
 
 
-// // FONCTION qui recherche dans le tableau si le produit selectionée à déja été ajouté
+// // FONCTION qui recherche dans le tableau si le produit selectionée à déja été ajouté//////////////////////////////////////
 // et retourne un tableau"ProduitIdentique" contenant l'objet en question
 const rechercheProduitIdentique = (arrayPanier, idProduitInput, couleurProduitInput) => {
   const arrayProduitIdentique = arrayPanier.filter(element => (element.idProduit === idProduitInput)
-    && (element.couleurProduit === couleurProduitInput))
+    && (element.couleurProduit === couleurProduitInput));
   return arrayProduitIdentique
 }
 
 
-// FONCTION qui modifie la quantité sur l'objet existant dans le tableau
+// FONCTION qui modifie la quantité sur l'objet existant dans le tableau//////////////////////////////////////////////////////////////
 const modifieObjetPanier = (arrayPanier, arrayProduitIdentique, idProduitInput, couleurProduitInput, quantiteProduitInput) => {
   // on recupere l'index du produit identique dans le tableau
   const indexproduit = arrayPanier.findIndex(element => (element.idProduit === idProduitInput)
-    && (element.couleurProduit === couleurProduitInput))
+    && (element.couleurProduit === couleurProduitInput));
 
-  console.log("arrayPanierORIGINAL", arrayPanier)
-  console.log(arrayProduitIdentique)
-  console.log(indexproduit)
   //on calcule la nouvelle quantité
-  let quantiteTotale = arrayProduitIdentique[0].quantiteProduit + quantiteProduitInput
+  let quantiteTotale = arrayProduitIdentique[0].quantiteProduit + quantiteProduitInput;
 
-// on ajoute le nouvel objet dans le tableau
-  const newObjet = newObjetPanier(idProduitInput, couleurProduitInput, quantiteTotale)
-  const newArrayPanier = pushObjetPanier(arrayPanier, newObjet)
-  console.log(newArrayPanier)
-  
-  // on supprime l ancien objet dans le tableau
-  // newArrayPanier = arrayPanier.splice(0, indexproduit,);
+  // on crée le nouvel objet avec la nouvelle quantite
+  const newObjet = newObjetPanier(idProduitInput, couleurProduitInput, quantiteTotale);
 
-  
+  // on ajoute le nouvel objet dans le tableau et on supprime l'ancien
+  arrayPanier.splice(indexproduit, 1, newObjet,);
 
-  return newArrayPanier
+  return arrayPanier
 }
 
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//FONCTION (MAIN) 
+//FONCTION (MAIN) /////////////////////////////////////////////////////////////////////////////////////////////////
 const AjoutPanier = () => {
 
   // on initialise le tableau si localStorage vide sinon on charge le localStorage
-  let arrayPanier = localStorage.length === 0 ? [] : chargeArrayPanier()
-  console.log(arrayPanier);
+  let arrayPanier = localStorage.length === 0 ? [] : chargeArrayPanier();
 
   // on ECOUTE le boutton au "clic" 
   const ajoutPanier = document.getElementById('addToCart')
@@ -150,38 +141,30 @@ const AjoutPanier = () => {
         alert("il manque la quantité ou la couleur du produit")
 
       } else {
-        console.log(arrayPanier);
+
         // on execute la FONCTION qui verifie si le produit à deja été ajouté et nous retourne un tableau
-        const arrayProduitIdentique = rechercheProduitIdentique(arrayPanier, idProduitInput, couleurProduitInput)
+        const arrayProduitIdentique = rechercheProduitIdentique(arrayPanier, idProduitInput, couleurProduitInput);
 
         // si le tableau arrayProduitIdentique contient un élément modifier seulement la quantité
         if (arrayProduitIdentique.length > 0) {
-          arrayPanier = modifieObjetPanier(arrayPanier, arrayProduitIdentique, idProduitInput, couleurProduitInput, quantiteProduitInput)
-          console.log(arrayPanier)
-          alert("MODIF produit")
+          arrayPanier = modifieObjetPanier(arrayPanier, arrayProduitIdentique, idProduitInput, couleurProduitInput, quantiteProduitInput);
 
           //  on execute la FONCTION qui sauvegarde le tableau dans le local storage
-          SauvegardeLocalStorage(arrayPanier)
-          console.log(arrayPanier)
+          SauvegardeLocalStorage(arrayPanier);
 
 
           // sinon ajouter un nouvel objet dans le tableau arrayProduit
         } else {
-
-          alert("produit differents")
           // on execute la FONCTION qui crée un nouvel objet
-          const newObjet = newObjetPanier(idProduitInput, couleurProduitInput, quantiteProduitInput)
+          const newObjet = newObjetPanier(idProduitInput, couleurProduitInput, quantiteProduitInput);
           //  on execute la FONCTION qui ajoute le nouvel objet au tableau
-           pushObjetPanier(arrayPanier, newObjet)
+          pushObjetPanier(arrayPanier, newObjet);
           //  on execute la FONCTION qui sauvegarde le tableau dans le local storage
-          SauvegardeLocalStorage(arrayPanier)
-          console.log(arrayPanier)
-
+          SauvegardeLocalStorage(arrayPanier);
         }
       }
-
-
     })
 }
 
-AjoutPanier()
+// on execute la FONCTION///////////////////////////////////////////////////////////////////////////////////////
+AjoutPanier();
