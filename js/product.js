@@ -20,6 +20,13 @@ const showListProduct = async () => {
   const datas = await getCanap(`http://localhost:3000/api/products/${idProduit}`);
   console.log(datas)
 
+   // on test l'Url si inexistant ou erroné on renvoi vers la page d'accueil
+  if(datas._id !== idProduit){
+    location.href= "./index.html";
+    return;
+  };
+
+
   // on injecte les datas dans le code HTML
   document.querySelector(".item__img").innerHTML = `<img src=${datas.imageUrl} alt="Photographie d'un canapé">`;
   document.querySelector("#title").innerHTML = `${datas.name}`;
