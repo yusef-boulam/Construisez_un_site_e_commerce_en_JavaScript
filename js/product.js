@@ -20,18 +20,17 @@ const showListProduct = async () => {
   const datas = await getCanap(`http://localhost:3000/api/products/${idProduit}`);
   console.log(datas)
 
-  // on verifie la reception des datas
-  if (datas === -1) {
-    alert("problème de connection au serveur, veuillez retenter ulterieurement ou vérifier votre connection.");
-    return;
-  };
-
   // on test l'Url si inexistant ou erroné on renvoi vers la page d'accueil
   if (datas._id !== idProduit) {
     location.href = "./index.html";
     return;
   };
 
+  // on verifie la reception des datas
+  if (datas === -1) {
+    alert("problème de connection au serveur, veuillez retenter ulterieurement ou vérifier votre connection.");
+    return;
+  };
 
   // on injecte les datas dans le code HTML
   document.querySelector(".item__img").innerHTML = `<img src=${datas.imageUrl} alt="Photographie d'un canapé">`;
@@ -81,6 +80,16 @@ const AjoutPanier = (datas) => {
     // on verifie que la quantite et la couleur soit saisie
     if (newObjetPanier.quantity === 0) {
       alert("il manque la quantité du produit");
+      return;
+    };
+
+    if (newObjetPanier.quantity < 0) {
+      alert("la quantité ne peut pas être négative");
+      return;
+    };
+
+    if (newObjetPanier.quantity > 100) {
+      alert("la quantité ne peut pas être supérieure à 100");
       return;
     };
 
