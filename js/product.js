@@ -20,9 +20,9 @@ const showListProduct = async () => {
   const datas = await getCanap(`http://localhost:3000/api/products/${idProduit}`);
   console.log(datas)
 
-   // on test l'Url si inexistant ou erroné on renvoi vers la page d'accueil
-  if(datas._id !== idProduit){
-    location.href= "./index.html";
+  // on test l'Url si inexistant ou erroné on renvoi vers la page d'accueil
+  if (datas._id !== idProduit) {
+    location.href = "./index.html";
     return;
   };
 
@@ -40,7 +40,7 @@ const showListProduct = async () => {
   };
 
   // on execute la FONCTION///////////////////////////////////////////////////////////////////////////////////////
-AjoutPanier(datas);
+  AjoutPanier(datas);
 };
 
 // on execute la FONCTION///////////////////////////////////////////////////////////////////////////////////////
@@ -55,41 +55,48 @@ const AjoutPanier = (datas) => {
 
   // on ECOUTE le boutton au "clic"
   const ajoutPanier = document.getElementById('addToCart').addEventListener('click', () => {
-    
-        // on crée le nouvel objet
-        const newObjetPanier = {
-          _id: datas._id,
-          color: document.getElementById("colors").value,
-          quantity: Number(document.getElementById("quantity").value),
-          image : datas.imageUrl ,
-          name: datas.name,
-        };
-        console.log("newObjetPanier", newObjetPanier)
 
-      // on verifie que la quantite et la couleur soit saisie
-      if ((newObjetPanier.quantity === 0) || (newObjetPanier.color === 0)) {
-        alert("il manque la quantité ou la couleur du produit");
-        return;
-      };
-        // on verifie si le produit à deja été ajouté 
-        const produitIdentique =  arrayPanier.find(element => element._id === newObjetPanier._id && element.color === newObjetPanier.color);
-        console.log(produitIdentique)
+    // on crée le nouvel objet
+    const newObjetPanier = {
+      _id: datas._id,
+      color: document.getElementById("colors").value,
+      quantity: Number(document.getElementById("quantity").value),
+      image: datas.imageUrl,
+      name: datas.name,
+    };
+    console.log("newObjetPanier", newObjetPanier)
 
-        // si produit identique déjà ajouté on modifie seulement la quantité
-        if (produitIdentique !== undefined) {
-          alert("MEME Produit");
-          produitIdentique.quantity += newObjetPanier.quantity;
-          // sinon ajouter un nouvel objet dans le tableau
-        } else {
-          alert("NOUVEAU produit");
-          arrayPanier.push(newObjetPanier);
-        }
-        sauvegardeLocalStorage(arrayPanier);
-        console.log("localStorage", localStorage)
+    // on verifie que la quantite et la couleur soit saisie
+    if (newObjetPanier.color === "") {
+      alert("il manque la couleur du produit");
+      return;
+    };
 
-                // redirection vers le panier
-        location.href= "./cart.html"
-      }
-    )
+    // on verifie que la quantite et la couleur soit saisie
+    if (newObjetPanier.quantity === 0) {
+      alert("il manque la quantité du produit");
+      return;
+    };
+
+    // on verifie si le produit à deja été ajouté 
+    const produitIdentique = arrayPanier.find(element => element._id === newObjetPanier._id && element.color === newObjetPanier.color);
+    console.log(produitIdentique)
+
+    // si produit identique déjà ajouté on modifie seulement la quantité
+    if (produitIdentique !== undefined) {
+      alert("MEME Produit");
+      produitIdentique.quantity += newObjetPanier.quantity;
+      // sinon ajouter un nouvel objet dans le tableau
+    } else {
+      alert("NOUVEAU produit");
+      arrayPanier.push(newObjetPanier);
+    }
+    sauvegardeLocalStorage(arrayPanier);
+    console.log("localStorage", localStorage)
+
+    // redirection vers le panier
+    location.href = "./cart.html"
+  }
+  )
 };
 
