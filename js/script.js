@@ -8,6 +8,12 @@ const showListProduct = async () => {
   // on recupere les datas avec la FUNCTION getCanap
   const datas = await getCanap('http://localhost:3000/api/products');
 
+    // on verifie la reception des datas
+    if (datas === -1) {
+      alert("problème de connection au serveur, veuillez retenter ulterieurement ou vérifier votre connection.");
+      return;
+    };  
+
    /* on boucle avec la METHODE forEach sur chaque objet du datas 
       et on charge les valeurs dans canapCards  */
     datas.forEach(canap => {

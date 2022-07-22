@@ -20,6 +20,12 @@ const showListProduct = async () => {
   const datas = await getCanap(`http://localhost:3000/api/products/${idProduit}`);
   console.log(datas)
 
+  // on verifie la reception des datas
+  if (datas === -1) {
+    alert("problème de connection au serveur, veuillez retenter ulterieurement ou vérifier votre connection.");
+    return;
+  };
+
   // on test l'Url si inexistant ou erroné on renvoi vers la page d'accueil
   if (datas._id !== idProduit) {
     location.href = "./index.html";
