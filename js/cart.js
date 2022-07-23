@@ -1,8 +1,6 @@
 
 //FONCTION remplit le panier ////////////////////////////////////////////////////////////
 const showPanier = async () => {
-  // on initialise la variable
-  let objetPanier = "";
 
   // on recupere le tableau dans le local storage
   let arrayPanier = chargeArrayPanier();
@@ -18,8 +16,12 @@ const showPanier = async () => {
     return;
   };
 
+    // on initialise la variable
+    let objetPanier = "";
+    
   /* on boucle avec la METHODE forEach sur chaque objet du localStorage
         et on charge les objets dans le panier  */
+        
   arrayPanier.forEach(objet => {
 
     // on recupere le prix du serveur pour chaque produit
@@ -51,6 +53,23 @@ const showPanier = async () => {
     // on injecte les articles dans le code HTML
     document.getElementById("cart__items").innerHTML = objetPanier;
   });
+
+
+ // total des articles
+ let totalQuantity = 0;
+ arrayPanier.forEach(canape => {
+        totalQuantity += canape.quantity;
+ })
+ document.getElementById("totalQuantity").innerHTML = totalQuantity;
+
+
+  // total du prix
+  let totalPrice = 0;
+  arrayPanier.forEach(canape => {
+    const price= datas.find(element => element._id === canape._id).price;
+    totalPrice += price * canape.quantity;
+  })
+  document.getElementById("totalPrice").innerHTML = totalPrice;
 
 };
 
