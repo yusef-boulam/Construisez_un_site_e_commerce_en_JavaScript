@@ -71,7 +71,22 @@ const showPanier = async () => {
   })
   document.getElementById("totalPrice").innerHTML = totalPrice;
 
-};
-
+    // supprimer l'article
+      // on boucle sur chaque lien supprimer et on ecoute le click
+  const allButtonDelete = document.querySelectorAll('.deleteItem')
+  for(let btnDelete of allButtonDelete){
+    btnDelete.addEventListener('click', () => {
+         //on recupere l id du produit cliqué dans le panier
+       const idObjectToDelete = btnDelete.closest('.cart__item').dataset.id
+             //on le compare à l'index du tableau / on recupere l'index et on le supprime
+       const objectArrayToDelete = arrayPanier.find(element => element._id === idObjectToDelete);
+       const indexToDelete = arrayPanier.indexOf(objectArrayToDelete);
+       arrayPanier.splice(indexToDelete, 1);
+         //on sauvegarde et on actualise la page
+       sauvegardeLocalStorage (arrayPanier);
+       location.href = "./cart.html"
+  }
+)};
+}
  // on execute la FUNCTION
  showPanier();
