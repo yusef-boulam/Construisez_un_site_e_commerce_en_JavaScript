@@ -78,8 +78,9 @@ const showPanier = async () => {
     btnDelete.addEventListener('click', () => {
       //on recupere l id du produit cliqué dans le panier
       const idObjectToDelete = btnDelete.closest('.cart__item').dataset.id
+      const colorObjectToDelete = btnDelete.closest('.cart__item').dataset.color
       //on le compare à l'index du tableau / on recupere l'index et on le supprime
-      const objectArrayToDelete = arrayPanier.find(element => element._id === idObjectToDelete);
+      const objectArrayToDelete = arrayPanier.find(element => element._id === idObjectToDelete && element.color === colorObjectToDelete);
       const indexToDelete = arrayPanier.indexOf(objectArrayToDelete);
       arrayPanier.splice(indexToDelete, 1);
       //on sauvegarde et on actualise la page
@@ -96,8 +97,9 @@ const showPanier = async () => {
     inputQuantity.addEventListener('change', () => {
       //on recupere l id du produit cliqué dans le panier
       const idObjectToChange = inputQuantity.closest('.cart__item').dataset.id
+      const colorObjectToChange = inputQuantity.closest('.cart__item').dataset.color
       //on recupere l'emplacement de l'objet dans le tableau et on modifie la quantite
-      const objectArrayToChange = arrayPanier.find(element => element._id === idObjectToChange);
+      const objectArrayToChange = arrayPanier.find(element => element._id === idObjectToChange && element.color === colorObjectToChange);
       objectArrayToChange.quantity = Number(inputQuantity.value)
       console.log(inputQuantity.value);
       //on sauvegarde et on actualise la page
