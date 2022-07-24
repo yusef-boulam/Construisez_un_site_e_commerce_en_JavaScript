@@ -16,16 +16,16 @@ const showPanier = async () => {
     return;
   };
 
-    // on initialise la variable
-    let objetPanier = "";
-    
+  // on initialise la variable
+  let objetPanier = "";
+
   /* on boucle avec la METHODE forEach sur chaque objet du localStorage
         et on charge les objets dans le panier  */
-        
+
   arrayPanier.forEach(objet => {
 
     // on recupere le prix du serveur pour chaque produit
-    const price= datas.find(element => element._id === objet._id).price
+    const price = datas.find(element => element._id === objet._id).price
 
     // on charge les donnée du local storage + le prix
     objetPanier += ` <article class="cart__item" data-id= ${objet._id} data-color=${objet.color} >
@@ -55,38 +55,60 @@ const showPanier = async () => {
   });
 
 
- // total des articles
- let totalQuantity = 0;
- arrayPanier.forEach(canape => {
-        totalQuantity += canape.quantity;
- })
- document.getElementById("totalQuantity").innerHTML = totalQuantity;
+  // total des articles
+  let totalQuantity = 0;
+  arrayPanier.forEach(canape => {
+    totalQuantity += canape.quantity;
+  })
+  document.getElementById("totalQuantity").innerHTML = totalQuantity;
 
 
   // total du prix
   let totalPrice = 0;
   arrayPanier.forEach(canape => {
-    const price= datas.find(element => element._id === canape._id).price;
+    const price = datas.find(element => element._id === canape._id).price;
     totalPrice += price * canape.quantity;
   })
   document.getElementById("totalPrice").innerHTML = totalPrice;
 
-    // supprimer l'article
-      // on boucle sur chaque lien supprimer et on ecoute le click
+  // supprimer l'article
+  // on boucle sur chaque lien supprimer et on ecoute le click
   const allButtonDelete = document.querySelectorAll('.deleteItem')
-  for(let btnDelete of allButtonDelete){
+  for (let btnDelete of allButtonDelete) {
     btnDelete.addEventListener('click', () => {
-         //on recupere l id du produit cliqué dans le panier
-       const idObjectToDelete = btnDelete.closest('.cart__item').dataset.id
-             //on le compare à l'index du tableau / on recupere l'index et on le supprime
-       const objectArrayToDelete = arrayPanier.find(element => element._id === idObjectToDelete);
-       const indexToDelete = arrayPanier.indexOf(objectArrayToDelete);
-       arrayPanier.splice(indexToDelete, 1);
-         //on sauvegarde et on actualise la page
-       sauvegardeLocalStorage (arrayPanier);
+      //on recupere l id du produit cliqué dans le panier
+      const idObjectToDelete = btnDelete.closest('.cart__item').dataset.id
+      //on le compare à l'index du tableau / on recupere l'index et on le supprime
+      const objectArrayToDelete = arrayPanier.find(element => element._id === idObjectToDelete);
+      const indexToDelete = arrayPanier.indexOf(objectArrayToDelete);
+      arrayPanier.splice(indexToDelete, 1);
+      //on sauvegarde et on actualise la page
+      sauvegardeLocalStorage(arrayPanier);
+      location.href = "./cart.html"
+    }
+    )
+  };
+
+  // modifier l'article
+  // on boucle sur les inputs de chaque produit et on ecoute le changement
+  const allInputQuantity = document.querySelectorAll('.itemQuantity')
+  for (let inputQuantity of allInputQuantity) {
+    inputQuantity.addEventListener('change', () => {
+      //on recupere l id du produit cliqué dans le panier
+      const idObjectToChange = inputQuantity.closest('.cart__item').dataset.id
+      //on recupere l'emplacement de l'objet dans le tableau et on modifie la quantite
+      const objectArrayToChange = arrayPanier.find(element => element._id === idObjectToChange);
+      objectArrayToChange.quantity = Number(inputQuantity.value)
+      console.log(inputQuantity.value);
+      //on sauvegarde et on actualise la page
+        sauvegardeLocalStorage(arrayPanier);
        location.href = "./cart.html"
-  }
-)};
+     }
+    )
+  };
+
+
+
 }
- // on execute la FUNCTION
- showPanier();
+// on execute la FUNCTION
+showPanier();
