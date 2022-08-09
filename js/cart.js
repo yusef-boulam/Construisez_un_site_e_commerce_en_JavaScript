@@ -36,7 +36,7 @@ const showPanier = async () => {
          <div class="cart__item__content__description">
            <h2>${objet.name}</h2>
            <p>${objet.color}</p>
-           <p>${price}€</p>
+           <p>${price} €</p>
          </div>
          <div class="cart__item__content__settings">
            <div class="cart__item__content__settings__quantity">
@@ -72,7 +72,7 @@ const showPanier = async () => {
   document.getElementById("totalPrice").innerHTML = totalPrice;
 
   // supprimer l'article
-  // on boucle sur chaque lien supprimer et on ecoute le click
+  // on boucle sur chaque lien "supprimer" et on ecoute le click
   const allButtonDelete = document.querySelectorAll('.deleteItem')
   for (let btnDelete of allButtonDelete) {
     btnDelete.addEventListener('click', () => {
@@ -92,10 +92,9 @@ const showPanier = async () => {
 
   // modifier l'article
   // on boucle sur les inputs de chaque produit et on ecoute le changement
-  const allInputQuantity = document.querySelectorAll('.itemQuantity')
-  for (let inputQuantity of allInputQuantity) {
+   document.querySelectorAll('.itemQuantity').forEach( (inputQuantity)=>{
     inputQuantity.addEventListener('change', () => {
-      //on recupere l id du produit cliqué dans le panier
+      //on recupere l id du produit cliqué dans le panier et la couleur
       const idObjectToChange = inputQuantity.closest('.cart__item').dataset.id
       const colorObjectToChange = inputQuantity.closest('.cart__item').dataset.color
       //on recupere l'emplacement de l'objet dans le tableau et on modifie la quantite
@@ -107,10 +106,41 @@ const showPanier = async () => {
        location.href = "./cart.html"
      }
     )
-  };
+  })
+  // for (let inputQuantity of allInputQuantity) {
+  //   inputQuantity.addEventListener('change', () => {
+  //     //on recupere l id du produit cliqué dans le panier et la couleur
+  //     const idObjectToChange = inputQuantity.closest('.cart__item').dataset.id
+  //     const colorObjectToChange = inputQuantity.closest('.cart__item').dataset.color
+  //     //on recupere l'emplacement de l'objet dans le tableau et on modifie la quantite
+  //     const objectArrayToChange = arrayPanier.find(element => element._id === idObjectToChange && element.color === colorObjectToChange);
+  //     objectArrayToChange.quantity = Number(inputQuantity.value)
+  //     console.log(inputQuantity.value);
+  //     //on sauvegarde et on actualise la page
+  //       sauvegardeLocalStorage(arrayPanier);
+  //      location.href = "./cart.html"
+  //    }
+  //   )
+  // };
+
+
+document.getElementById("order").addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const isValidFirstName = firstName();
+    const isValidLastName = lastName();
+    if (isValidFirstName && isValidLastName){
+      // if (firstName() && lastName() && address() && city() && email()){
+        alert("commande envoyé");
+    } else {
+      alert("commande pas envoyé");
+    }
+})
 
 
 
 }
 // on execute la FUNCTION
 showPanier();
+
+
