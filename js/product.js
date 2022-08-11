@@ -10,7 +10,7 @@ const recupId = () => {
   return idProduit;
 }
 
-///on crée la FONCTION qui récupère la CARD CANAPE dans la base de donnée et l'ijecte dans le HTML//////////////////////////////
+///on crée la FONCTION "MAIN" qui récupère la CARD CANAPE dans la base de donnée et on l'ijecte dans le HTML//////////////////////////////
 const showListProduct = async () => {
 
   // on execute la FONCTION recupId qu'on charge dans la variable idProduit

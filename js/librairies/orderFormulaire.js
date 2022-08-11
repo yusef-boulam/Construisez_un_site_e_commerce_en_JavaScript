@@ -14,8 +14,8 @@ const notEmpty = (element) => {
 };
 
 const firstName = () => {
-return notEmpty(firstName, firstNameErrorMsg);
-};
+    return notEmpty(firstName, firstNameErrorMsg);
+}; 
 
 const lastName = () => {
     return notEmpty(lastName, lastNameErrorMsg);
@@ -33,21 +33,21 @@ const lastName = () => {
 };
 
 const address = () => {
-    const value = document.getElementById("address").value;
-    console.log(value)
-    return true;
+    // const value = document.getElementById("address").value;
+    // console.log(value)
+    // return true;
 };
 
 const city = () => {
-    const value = document.getElementById("city").value;
-    console.log(value)
-    return true;
+    // const value = document.getElementById("city").value;
+    // console.log(value)
+    // return true;
 };
 
 const email = () => {
-    const value = document.getElementById("email").value;
-    console.log(value)
-    return true;
+    // const value = document.getElementById("email").value;
+    // console.log(value)
+    // return true;
 };
 
 

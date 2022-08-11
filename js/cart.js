@@ -94,6 +94,14 @@ const showPanier = async () => {
   // on boucle sur les inputs de chaque produit et on ecoute le changement
    document.querySelectorAll('.itemQuantity').forEach( (inputQuantity)=>{
     inputQuantity.addEventListener('change', () => {
+      if (inputQuantity.value < 1 ) {
+        alert("la quantité ne peut être inferieure à 1")
+        return
+      }
+      if (inputQuantity.value > 100 ) {
+        alert("la quantité ne peut être supérieure à 100")
+        return
+      }
       //on recupere l id du produit cliqué dans le panier et la couleur
       const idObjectToChange = inputQuantity.closest('.cart__item').dataset.id
       const colorObjectToChange = inputQuantity.closest('.cart__item').dataset.color
