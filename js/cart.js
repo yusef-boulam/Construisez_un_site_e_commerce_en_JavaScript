@@ -6,6 +6,12 @@ const showPanier = async () => {
   let arrayPanier = chargeArrayPanier();
   console.log(arrayPanier);
 
+  // si local storage vide on retourne sur la home page
+  if (arrayPanier.length === 0) {
+    location.href = "./index.html"
+    return
+  }
+
   // on recupere les datas avec la FUNCTION getCanap
   let datas = await getCanap('http://localhost:3000/api/products');
   console.log(datas);
