@@ -121,21 +121,8 @@ const showPanier = async () => {
      }
     )
   })
-  // for (let inputQuantity of allInputQuantity) {
-  //   inputQuantity.addEventListener('change', () => {
-  //     //on recupere l id du produit cliqué dans le panier et la couleur
-  //     const idObjectToChange = inputQuantity.closest('.cart__item').dataset.id
-  //     const colorObjectToChange = inputQuantity.closest('.cart__item').dataset.color
-  //     //on recupere l'emplacement de l'objet dans le tableau et on modifie la quantite
-  //     const objectArrayToChange = arrayPanier.find(element => element._id === idObjectToChange && element.color === colorObjectToChange);
-  //     objectArrayToChange.quantity = Number(inputQuantity.value)
-  //     console.log(inputQuantity.value);
-  //     //on sauvegarde et on actualise la page
-  //       sauvegardeLocalStorage(arrayPanier);
-  //      location.href = "./cart.html"
-  //    }
-  //   )
-  // };
+
+  // FORMULAIRE
 
 
 document.getElementById("order").addEventListener('click', (event) => {
