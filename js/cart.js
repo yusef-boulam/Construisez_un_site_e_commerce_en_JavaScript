@@ -130,7 +130,12 @@ document.getElementById("order").addEventListener('click', (event) => {
 
     const isValidFirstName = firstName();
     const isValidLastName = lastName();
-    if (isValidFirstName && isValidLastName){
+    const isValidaddress = address();
+    const isValidcity = city();
+    const isValidemail= email();
+
+
+    if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail){
       // if (firstName() && lastName() && address() && city() && email()){
         alert("commande envoyé");
     } else {

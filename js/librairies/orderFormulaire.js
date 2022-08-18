@@ -1,53 +1,46 @@
 
-const notEmpty = (element) => {
-    let value = document.getElementById(`${element}`).value;
+const notEmpty = (value, elementErrorMsg, messageAlert) => {
+   
     value = value.trim();
+
     console.log(value)
-    const errorMsg = document.getElementById(`${elementErrorMsg}`)
-    errorMsg.innerHTML = "";
+  
+    elementErrorMsg.innerHTML = "";
 
     if (value === "") {
-        errorMsg.innerHTML = "Le prénom est obligatoire";
+        elementErrorMsg.innerHTML = `${messageAlert} est obligatoire`;
         return false;
     }
     return true;
 };
 
+const validName = (value) =>{
+   
+
+}
+
+
 const firstName = () => {
-    return notEmpty(firstName, firstNameErrorMsg);
+    const value = document.getElementById("firstName").value;
+    const elementErrorMsg = document.getElementById("firstNameErrorMsg")
+    return notEmpty(value, elementErrorMsg, "le prénom");
 }; 
 
 const lastName = () => {
-    return notEmpty(lastName, lastNameErrorMsg);
-    // let value = document.getElementById("lastName").value;
-    // value = value.trim();
-    // console.log(value)
-    // const lastNameErrorMsg = document.getElementById("lastNameErrorMsg")
-    // lastNameErrorMsg.innerHTML = "";
-
-    // if (value === "") {
-    //     lastNameErrorMsg.innerHTML = "Le nom est obligatoire";
-    //     return false;
-    // }
-    // return true;
+    return notEmpty("lastName", "lastNameErrorMsg", "le nom");
 };
 
 const address = () => {
-    // const value = document.getElementById("address").value;
-    // console.log(value)
-    // return true;
+    return notEmpty("address", "addressErrorMsg", "l'adresse");
 };
 
 const city = () => {
-    // const value = document.getElementById("city").value;
-    // console.log(value)
-    // return true;
+    return notEmpty("city", "cityErrorMsg", "la ville");
+
 };
 
 const email = () => {
-    // const value = document.getElementById("email").value;
-    // console.log(value)
-    // return true;
+    return notEmpty("email", "emailErrorMsg", "l'email");
 };
 
 
