@@ -96,13 +96,14 @@ const AjoutPanier = (datas) => {
     // on verifie si le produit à deja été ajouté 
     const produitIdentique = arrayPanier.find(element => element._id === newObjetPanier._id && element.color === newObjetPanier.color);
     console.log(produitIdentique)
-        // on verifie que la quantité du panier ne depassera pas 100
-    if (produitIdentique.quantity + newObjetPanier.quantity > 100){
-      alert("la quantité ne peut pas être supérieure à 100");
-      return;
-    }
+
     // si produit identique déjà ajouté on modifie seulement la quantité
     if (produitIdentique !== undefined) {
+              // on verifie que la quantité du panier ne depassera pas 100
+    if (produitIdentique.quantity + newObjetPanier.quantity > 100){
+      alert("la quantité du produit dans le panier ne peut être supérieure à 100");
+      return;
+    }
          // on modifie la quantité du panier
       alert("MEME Produit");
       produitIdentique.quantity += newObjetPanier.quantity;
