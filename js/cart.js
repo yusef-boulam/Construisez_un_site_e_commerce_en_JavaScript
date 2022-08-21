@@ -123,29 +123,25 @@ const showPanier = async () => {
     )
   })
 
-  // FORMULAIRE
-
-
+  // FORMULAIRE////////////////////////////////////////////////////////////
+ 
+  // On ecoute le boutton commander et on supprime le comportment par defaut.
 document.getElementById("order").addEventListener('click', (event) => {
     event.preventDefault();
-
+ // On execute les fonctions et on les stocke dans des constantes.
     const isValidFirstName = firstName();
     const isValidLastName = lastName();
     const isValidaddress = address();
     const isValidcity = city();
     const isValidemail= email();
 
-
+// On controle que toutes les infos du formulaires sont valides
     if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail){
-      // if (firstName() && lastName() && address() && city() && email()){
         alert("commande envoyé");
     } else {
       alert("commande pas envoyé");
     }
 })
-
-
-
 }
 // on execute la FUNCTION
 showPanier();
