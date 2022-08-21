@@ -1,22 +1,5 @@
 
-
-// //on teste avec la fonction not empty que la saisie N EST PAS VIDE
-// const notEmpty = (value, elementErrorMsg, messageAlert) => {
-//     // La méthode trim() permet de retirer les blancs en début et fin de chaîne. 
-//     value = value.trim();
-//     console.log(value)
-//  // on vide la valeur erreur
-//     elementErrorMsg.innerHTML = "";
-//  // on verifie que la saisie n'est pas vide et on affiche le message d'erreur le cas écheant
-//     if (value === "") {
-//         elementErrorMsg.innerHTML = `${messageAlert} est obligatoire`;
-//          // on retourne true ou false pour permettre la validation du formulaire
-//         return false;
-//     }
-//     return true;
-// };
-
-//on teste avec la fonction validName que la saisie soit valise
+//on teste avec la fonction validName que la saisie soit valide
 const validName = (value, elementErrorMsg, messageAlert) =>{
       // La méthode trim() permet de retirer les blancs en début et fin de chaîne. 
      value = value.trim();
@@ -28,7 +11,7 @@ const validName = (value, elementErrorMsg, messageAlert) =>{
     return false;
    }
    else if (nameRegex.test(value)) {
-   return true;
+    return true;
    }else{
     elementErrorMsg.innerHTML = `${messageAlert} n'est pas valide`;
     return false;
@@ -46,41 +29,35 @@ const validAdress = (value, elementErrorMsg, messageAlert) =>{
     return false;
 }
 
-//on recupere la saisie et l'emplacement du message d'erreur et on execute les fonctions de test
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
 const firstName = () => {
+    //on recupere la saisie et l'emplacement du message d'erreur
     const value = document.getElementById("firstName").value;
     const elementErrorMsg = document.getElementById("firstNameErrorMsg")
-    // On execute les fonctions et on les stocke dans des constantes.
-    const testValidName = validName(value, elementErrorMsg, "le prénom");
-    if (testValidName){
+    // on teste la saisie
+    if (validName(value, elementErrorMsg, "le prénom")){
      return true;
-    } else {
-     return false;
     }
+     return false;
 }; 
 
 const lastName = () => {
     const value = document.getElementById("lastName").value;
     const elementErrorMsg = document.getElementById("lastNameErrorMsg")
-    // On execute les fonctions et on les stocke dans des constantes.
-    // const testNotEmpty = notEmpty(value, elementErrorMsg, "le nom");
-    const testValidName = validName(value, elementErrorMsg, "le nom");
-   // On controle que toutes les infos de firstName sont valides
-    if (testValidName){
+    if (validName(value, elementErrorMsg, "le nom")){
      return true;
-    } else {
+    } 
      return false;
-    }
 }; 
 
 const address = () => {
-    const value = document.getElementById("address").value;
-    const elementErrorMsg = document.getElementById("addressErrorMsg")
-    // On execute les fonctions et on les stocke dans des constantes.
-    // const testNotEmpty = notEmpty(value, elementErrorMsg, "l'addresse");
-    const testValidAdress = validAdress(value, elementErrorMsg, "l'addresse");
-   // On controle que toutes les infos de firstName sont valides
-    if (testValidAdress){
+     const value = document.getElementById("lastName").value;
+    const elementErrorMsg = document.getElementById("lastNameErrorMsg")
+    
+    if (validName(value, elementErrorMsg, "le nom")){
      return true;
     } else {
      return false;
@@ -88,13 +65,10 @@ const address = () => {
 }; 
 
 const city = () => {
-    const value = document.getElementById("city").value;
-    const elementErrorMsg = document.getElementById("cityErrorMsg")
-    // On execute les fonctions et on les stocke dans des constantes.
-    // const testNotEmpty = notEmpty(value, elementErrorMsg, "la ville");
-    const testvalidCity = validCity(value, elementErrorMsg, "la ville");
-   // On controle que toutes les infos de firstName sont valides
-    if (testvalidCity){
+    const value = document.getElementById("lastName").value;
+    const elementErrorMsg = document.getElementById("lastNameErrorMsg")
+    
+    if (validName(value, elementErrorMsg, "le nom")){
      return true;
     } else {
      return false;
@@ -102,17 +76,33 @@ const city = () => {
 }; 
 
 const email = () => {
-    const value = document.getElementById("email").value;
-    const elementErrorMsg = document.getElementById("emailErrorMsg")
-    // On execute les fonctions et on les stocke dans des constantes.
-    // const testNotEmpty = notEmpty(value, elementErrorMsg, "l'email");
-    const testvalidEmail = validEmail(value, elementErrorMsg, "l'email");
-   // On controle que toutes les infos de firstName sont valides
-    if (testvalidEmail){
+    const value = document.getElementById("lastName").value;
+    const elementErrorMsg = document.getElementById("lastNameErrorMsg")
+    
+    if (validName(value, elementErrorMsg, "le nom")){
      return true;
     } else {
      return false;
     }
-
 }; 
 
+
+
+
+
+
+// //on teste avec la fonction not empty que la saisie N EST PAS VIDE
+// const notEmpty = (value, elementErrorMsg, messageAlert) => {
+//     // La méthode trim() permet de retirer les blancs en début et fin de chaîne. 
+//     value = value.trim();
+//     console.log(value)
+//  // on vide la valeur erreur
+//     elementErrorMsg.innerHTML = "";
+//  // on verifie que la saisie n'est pas vide et on affiche le message d'erreur le cas écheant
+//     if (value === "") {
+//         elementErrorMsg.innerHTML = `${messageAlert} est obligatoire`;
+//          // on retourne true ou false pour permettre la validation du formulaire
+//         return false;
+//     }
+//     return true;
+// };

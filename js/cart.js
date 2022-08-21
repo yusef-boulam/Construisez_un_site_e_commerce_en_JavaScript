@@ -134,6 +134,7 @@ document.getElementById("order").addEventListener('click', (event) => {
     const isValidaddress = address();
     const isValidcity = city();
     const isValidemail= email();
+    console.log(isValidFirstName)
 
 // On controle que toutes les infos du formulaires sont valides
     if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail){
