@@ -1,4 +1,3 @@
-
 //FONCTION remplit le panier ////////////////////////////////////////////////////////////
 const showPanier = async () => {
 
@@ -22,7 +21,7 @@ const showPanier = async () => {
     return;
   };
 
-  // on initialise la variable
+  // on initialise la variable objetPanier
   let objetPanier = "";
 
   /* on boucle avec la METHODE forEach sur chaque objet du localStorage
@@ -106,6 +105,7 @@ const showPanier = async () => {
       }
       if (inputQuantity.value > 100 ) {
         alert("la quantité ne peut être supérieure à 100")
+        location.href = "./cart.html"
         return
       }
       //on recupere l id du produit cliqué dans le panier et la couleur
