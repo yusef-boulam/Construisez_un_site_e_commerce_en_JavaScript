@@ -7,6 +7,7 @@ const showPanier = async () => {
 
   // si local storage vide on retourne sur la home page
   if (arrayPanier.length === 0) {
+    alert("panier vide");
     location.href = "./index.html"
     return
   }
