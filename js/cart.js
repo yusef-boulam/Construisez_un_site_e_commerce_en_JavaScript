@@ -138,7 +138,7 @@ document.getElementById("order").addEventListener('click', (event) => {
 
 // On controle que toutes les infos du formulaires sont valides
     if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail){
-        alert("commande envoyé");
+      alert("commande envoyé");
     } else {
       alert("commande pas envoyé");
     }
@@ -148,3 +148,4 @@ document.getElementById("order").addEventListener('click', (event) => {
 showPanier();
 
 
+  
