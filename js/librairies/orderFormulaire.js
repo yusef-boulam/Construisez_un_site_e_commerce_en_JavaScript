@@ -142,12 +142,5 @@ const email = () => {
 };
 
 
-let user = {
-    firstName: '',
-    lastName: '',
-    adress: '',
-    city: '',
-    email: '',
-};
 
 

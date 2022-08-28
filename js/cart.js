@@ -98,13 +98,13 @@ const showPanier = async () => {
 
   // modifier l'article
   // on boucle sur les inputs de chaque produit et on ecoute le changement
-   document.querySelectorAll('.itemQuantity').forEach( (inputQuantity)=>{
+  document.querySelectorAll('.itemQuantity').forEach((inputQuantity) => {
     inputQuantity.addEventListener('change', () => {
-      if (inputQuantity.value < 1 ) {
+      if (inputQuantity.value < 1) {
         alert("la quantité ne peut être inferieure à 1")
         return
       }
-      if (inputQuantity.value > 100 ) {
+      if (inputQuantity.value > 100) {
         alert("la quantité ne peut être supérieure à 100")
         location.href = "./cart.html"
         return
@@ -117,35 +117,51 @@ const showPanier = async () => {
       objectArrayToChange.quantity = Number(inputQuantity.value)
       console.log(inputQuantity.value);
       //on sauvegarde et on actualise la page
-        sauvegardeLocalStorage(arrayPanier);
-       location.href = "./cart.html"
-     }
+      sauvegardeLocalStorage(arrayPanier);
+      location.href = "./cart.html"
+    }
     )
   })
 
   // FORMULAIRE////////////////////////////////////////////////////////////
- 
+
   // On ecoute le boutton commander et on supprime le comportment par defaut.
-document.getElementById("order").addEventListener('click', (event) => {
+  document.getElementById("order").addEventListener('click', (event) => {
     event.preventDefault();
- // On execute les fonctions et on les stocke dans des constantes.
+    // On execute les fonctions et on les stocke dans des constantes.
     const isValidFirstName = firstName();
     const isValidLastName = lastName();
     const isValidaddress = address();
     const isValidcity = city();
-    const isValidemail= email();
+    const isValidemail = email();
     console.log(isValidFirstName)
 
-// On controle que toutes les infos du formulaires sont valides
-    if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail){
-      alert("commande envoyé");
+    // On controle que toutes les infos du formulaires sont valides
+    if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail) {
+
+
+      const saveOrder = async () => {
+
+        const contact = {
+          firstName: document.getElementById("firstName").value,
+          lastName: document.getElementById("lastName").value,
+          address: document.getElementById("address").value,
+          city: document.getElementById("city").value,
+          email: document.getElementById("email").value,
+        };
+   
+        const numberOrder = await postOrder('http://localhost:3000/api/products/order', contact, arrayPanier);
+        // document.getElementById("orderId").innerHTML = numberOrder;
+        alert("commande envoyé");
+      }
+      saveOrder();
+
     } else {
       alert("commande pas envoyé");
     }
-})
+  })
 }
 // on execute la FUNCTION
 showPanier();
 
 
-  
