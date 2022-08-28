@@ -139,9 +139,8 @@ const showPanier = async () => {
     // On controle que toutes les infos du formulaires sont valides
     if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail) {
 
-
+      // On crée l'objet contact, on recupere le tableau et on l'envoi au serveur avec la methode POST
       const saveOrder = async () => {
-
         const contact = {
           firstName: document.getElementById("firstName").value,
           lastName: document.getElementById("lastName").value,
@@ -149,9 +148,16 @@ const showPanier = async () => {
           city: document.getElementById("city").value,
           email: document.getElementById("email").value,
         };
-   
+
         const numberOrder = await postOrder('http://localhost:3000/api/products/order', contact, arrayPanier);
-        // document.getElementById("orderId").innerHTML = numberOrder;
+         document.getElementById("orderId").innerHTML = numberOrder;
+       
+        // on verifie la reception des datas
+        if (numberOrder === -1) {
+          alert("problème d'enregistrement sur le serveur. La commande n'a pas pu être envoyé, veuillez retenter ulterieurement");
+          return;
+        };
+
         alert("commande envoyé");
       }
       saveOrder();
