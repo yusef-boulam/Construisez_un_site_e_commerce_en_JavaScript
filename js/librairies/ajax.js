@@ -27,7 +27,7 @@ const postOrder = async (url, contact, arrayPanier) => {
 
 
      if (response.status === 201) {
-        //  return await response.id.json();
+          return await response.json();
      }
 
     return -1

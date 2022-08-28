@@ -80,7 +80,8 @@ const showPanier = async () => {
   // supprimer l'article
   // on boucle sur chaque lien "supprimer" et on ecoute le click
   const allButtonDelete = document.querySelectorAll('.deleteItem')
-  for (let btnDelete of allButtonDelete) {
+  
+  allButtonDelete.forEach(btnDelete => {
     btnDelete.addEventListener('click', () => {
       //on recupere l id du produit cliqué dans le panier
       const idObjectToDelete = btnDelete.closest('.cart__item').dataset.id
@@ -92,9 +93,8 @@ const showPanier = async () => {
       //on sauvegarde et on actualise la page
       sauvegardeLocalStorage(arrayPanier);
       location.href = "./cart.html"
-    }
-    )
-  };
+      })
+    });
 
   // modifier l'article
   // on boucle sur les inputs de chaque produit et on ecoute le changement

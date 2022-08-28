@@ -39,10 +39,10 @@ const showListProduct = async () => {
   document.querySelector("#description").innerHTML = `${datas.description}`;
 
   // on injecte les couleurs séléctionnables dans le code HTML avec +=
-  for (color of datas.colors) {
+  datas.colors.forEach(color => {
     const addOptionCouleur = `<option value="${color}">${color}</option>`;
     document.querySelector("#colors").innerHTML += addOptionCouleur;
-  };
+  });
 
   // on execute la FONCTION///////////////////////////////////////////////////////////////////////////////////////
   AjoutPanier(datas);
