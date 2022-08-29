@@ -1,5 +1,5 @@
 
-//FUNCTION recupere les CARDS CANAPES dans la base de donnée et l'ijecte dans le HTML
+//FUNCTION qui recupere les CARDS CANAPES dans la base de donnée et l'ijecte dans le HTML
 const showListProduct = async () => {
 
  // on initialise la variable
@@ -31,5 +31,5 @@ const showListProduct = async () => {
     document.getElementById("items").innerHTML=canapCards;
    
 }
-  // on execute la FUNCTION
+  // on execute la FUNCTION qui recupere les CARDS CANAPES dans la base de donnée et l'ijecte dans le HTML
 showListProduct();

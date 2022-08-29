@@ -1,4 +1,4 @@
-//FONCTION remplit le panier ////////////////////////////////////////////////////////////
+//FONCTION  principale qui remplit le panier ////////////////////////////////////////////////////////////
 const showPanier = async () => {
 
   // on recupere le tableau dans le local storage
@@ -156,7 +156,6 @@ const showPanier = async () => {
           return;
         };
         document.getElementById("orderId").innerHTML = numberOrder;
-        alert("commande envoyé");
         location.href = "./orderFormulaire.js"
       }
       saveOrder();

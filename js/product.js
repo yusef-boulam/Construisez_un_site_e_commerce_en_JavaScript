@@ -45,14 +45,17 @@ const showListProduct = async () => {
   });
 
   // on execute la FONCTION///////////////////////////////////////////////////////////////////////////////////////
+ // placé à l'intérieur de showListProduct() pour récupérer les datas. Ajoute le produit et la quantité dans le panier au clic.
   AjoutPanier(datas);
 };
 
 // on execute la FONCTION///////////////////////////////////////////////////////////////////////////////////////
+//FONCTION "MAIN" qui récupère la CARD CANAPE dans la base de donnée et on l'ijecte dans le HTML
 showListProduct();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //FONCTION AJOUT PANIER /////////////////////////////////////////////////////////////////////////////////////////////////
+//Ajoute le produit et la quantité dans le panier au clic.
 const AjoutPanier = (datas) => {
 
   // on initialise le tableau si localStorage vide sinon on charge le localStorage
@@ -71,23 +74,25 @@ const AjoutPanier = (datas) => {
     };
     console.log("newObjetPanier", newObjetPanier)
 
-    // on verifie que la quantite et la couleur soit saisie
+    // on verifie que la quantite soit saisie
     if (newObjetPanier.color === "") {
       alert("il manque la couleur du produit");
       return;
     };
 
-    // on verifie que la quantite et la couleur soit saisie
+    // on verifie que la quantite est differente de 0
     if (newObjetPanier.quantity === 0) {
       alert("il manque la quantité du produit");
       return;
     };
 
+      // on verifie que la quantite n'es pas negative
     if (newObjetPanier.quantity < 0) {
       alert("la quantité ne peut pas être négative");
       return;
     };
 
+      // on verifie que la quantite n'es pas superieure à 100
     if (newObjetPanier.quantity > 100) {
       alert("la quantité ne peut pas être supérieure à 100");
       return;
@@ -112,6 +117,7 @@ const AjoutPanier = (datas) => {
       alert("NOUVEAU produit");
       arrayPanier.push(newObjetPanier);
     }
+    //on sauvegarde dans le local Storage
     sauvegardeLocalStorage(arrayPanier);
     console.log("localStorage", localStorage)
 
