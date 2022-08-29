@@ -150,15 +150,14 @@ const showPanier = async () => {
         };
 
         const numberOrder = await postOrder('http://localhost:3000/api/products/order', contact, arrayPanier);
-         document.getElementById("orderId").innerHTML = numberOrder;
-       
         // on verifie la reception des datas
         if (numberOrder === -1) {
           alert("problème d'enregistrement sur le serveur. La commande n'a pas pu être envoyé, veuillez retenter ulterieurement");
           return;
         };
-
+        document.getElementById("orderId").innerHTML = numberOrder;
         alert("commande envoyé");
+        location.href = "./orderFormulaire.js"
       }
       saveOrder();
 
