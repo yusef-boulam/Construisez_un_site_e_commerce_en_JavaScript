@@ -1,3 +1,5 @@
+
+
 //FONCTION  principale qui remplit le panier ////////////////////////////////////////////////////////////
 const showPanier = async () => {
 
@@ -60,7 +62,9 @@ const showPanier = async () => {
     document.getElementById("cart__items").innerHTML = objetPanier;
   });
 
+//FONCTION qui calcule la quantité et le prix total des articles du panier /
 
+const totalQuantityPrice = () => {
   // total des articles
   let totalQuantity = 0;
   arrayPanier.forEach(canape => {
@@ -76,6 +80,10 @@ const showPanier = async () => {
     totalPrice += price * canape.quantity;
   })
   document.getElementById("totalPrice").innerHTML = totalPrice;
+}
+  
+//on execute la FONCTION qui calcule la quantité et le prix total des articles du panier /
+totalQuantityPrice();
 
   // supprimer l'article
   // on boucle sur chaque lien "supprimer" et on ecoute le click
@@ -90,35 +98,38 @@ const showPanier = async () => {
       const objectArrayToDelete = arrayPanier.find(element => element._id === idObjectToDelete && element.color === colorObjectToDelete);
       const indexToDelete = arrayPanier.indexOf(objectArrayToDelete);
       arrayPanier.splice(indexToDelete, 1);
-      //on sauvegarde et on actualise la page
+      //on sauvegarde dans le local storage
       sauvegardeLocalStorage(arrayPanier);
-      location.href = "./cart.html"
+     //on execute showPanier pour re-actualiser le contenu du panier
+      showPanier();
       })
     });
 
   // modifier l'article
-  // on boucle sur les inputs de chaque produit et on ecoute le changement
+  // on boucle sur les inputs de chaque produit et on écoute le changement
   document.querySelectorAll('.itemQuantity').forEach((inputQuantity) => {
     inputQuantity.addEventListener('change', () => {
+        // on verifie que la saisie soit positive
       if (inputQuantity.value < 1) {
         alert("la quantité ne peut être inferieure à 1")
         return
       }
+        // on verifie que la saisie soit inferieur à 100
       if (inputQuantity.value > 100) {
         alert("la quantité ne peut être supérieure à 100")
         location.href = "./cart.html"
         return
       }
-      //on recupere l id du produit cliqué dans le panier et la couleur
+      //on recupere l id du produit modifié dans le panier et sa couleure
       const idObjectToChange = inputQuantity.closest('.cart__item').dataset.id
       const colorObjectToChange = inputQuantity.closest('.cart__item').dataset.color
-      //on recupere l'emplacement de l'objet dans le tableau et on modifie la quantite
+      //on recupere l'emplacement de l'objet dans le tableau chargé depuis le local storage et on modifie la quantite
       const objectArrayToChange = arrayPanier.find(element => element._id === idObjectToChange && element.color === colorObjectToChange);
       objectArrayToChange.quantity = Number(inputQuantity.value)
-      console.log(inputQuantity.value);
-      //on sauvegarde et on actualise la page
+      //on sauvegarde à nouveau dans le local storage et on actualise la page
       sauvegardeLocalStorage(arrayPanier);
-      location.href = "./cart.html"
+      //on execute la FONCTION qui calcule la quantité et le prix total des articles du panier /
+      totalQuantityPrice();
     }
     )
   })
