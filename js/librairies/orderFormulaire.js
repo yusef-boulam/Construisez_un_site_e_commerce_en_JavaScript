@@ -1,9 +1,8 @@
 
 
-
+// on teste la saisie avec une regex, on modifie le message d'erreur et on renvoi un booleen
 const isValidRegex = (value, elementErrorMsg, messageAlert, regex) => {
 
-// on teste la saisie avec une regex, on modifie le message d'erreur et on renvoi un booleen
 if (regex.test(value) === false) {
     elementErrorMsg.innerHTML = `${messageAlert} n'est pas valide`;
     return false;
@@ -87,7 +86,7 @@ const validEmail = (value, elementErrorMsg, messageAlert) => {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-
+ //on recupere la saisie et l'emplacement du message d'erreur et on teste la saisie
 const firstName = () => {
     //on recupere la saisie et l'emplacement du message d'erreur
     const value = document.getElementById("firstName").value; 
@@ -98,7 +97,7 @@ const firstName = () => {
     }
     return false;
 };
-
+ //on recupere la saisie et l'emplacement du message d'erreur et on teste la saisie
 const lastName = () => {
     const value = document.getElementById("lastName").value;
     const elementErrorMsg = document.getElementById("lastNameErrorMsg")
@@ -107,7 +106,7 @@ const lastName = () => {
     }
     return false;
 };
-
+ //on recupere la saisie et l'emplacement du message d'erreur et on teste la saisie
 const address = () => {
     const value = document.getElementById("address").value;
     const elementErrorMsg = document.getElementById("addressErrorMsg")
@@ -118,7 +117,7 @@ const address = () => {
         return false;
     }
 };
-
+ //on recupere la saisie et l'emplacement du message d'erreur et on teste la saisie
 const city = () => {
     const value = document.getElementById("city").value;
     const elementErrorMsg = document.getElementById("cityErrorMsg")
@@ -129,7 +128,7 @@ const city = () => {
         return false;
     }
 };
-
+ //on recupere la saisie et l'emplacement du message d'erreur et on teste la saisie
 const email = () => {
     const value = document.getElementById("email").value;
     const elementErrorMsg = document.getElementById("emailErrorMsg")

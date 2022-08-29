@@ -1,6 +1,6 @@
 
 
-//FONCTION  principale qui remplit le panier ////////////////////////////////////////////////////////////
+//FONCTION principale qui remplit le panier, ecoute la saisie du panier et envoi la commande au serveur////////////////////////////////////////////////////////////
 const showPanier = async () => {
 
   // on recupere le tableau dans le local storage
@@ -136,7 +136,7 @@ totalQuantityPrice();
 
   // FORMULAIRE////////////////////////////////////////////////////////////
 
-  // On ecoute le boutton commander et on supprime le comportment par defaut.
+  // On écoute le boutton commander et on supprime le comportment par defaut.
   document.getElementById("order").addEventListener('click', (event) => {
     event.preventDefault();
     // On execute les fonctions et on les stocke dans des constantes.
@@ -150,7 +150,7 @@ totalQuantityPrice();
     // On controle que toutes les infos du formulaires sont valides
     if (isValidFirstName && isValidLastName && isValidaddress && isValidcity && isValidemail) {
 
-      // On crée l'objet contact, on recupere le tableau et on l'envoi au serveur avec la methode POST
+      // FONCTION qui crée l'objet contact, on recupere le tableau contenant la commande et on l'envoi au serveur avec la methode POST
       const saveOrder = async () => {
         const contact = {
           firstName: document.getElementById("firstName").value,
@@ -159,16 +159,19 @@ totalQuantityPrice();
           city: document.getElementById("city").value,
           email: document.getElementById("email").value,
         };
-
+         // on charge le numberOrder si la commande c'est bien passé
         const numberOrder = await postOrder('http://localhost:3000/api/products/order', contact, arrayPanier);
         // on verifie la reception des datas
         if (numberOrder === -1) {
           alert("problème d'enregistrement sur le serveur. La commande n'a pas pu être envoyé, veuillez retenter ulterieurement");
           return;
         };
+       // si la requette c'est bien passé on pointe vers orderId lui attribue le numero de commande 
         document.getElementById("orderId").innerHTML = numberOrder;
+        //on affiche orderFormulaire avec le numero de commande
         location.href = "./orderFormulaire.js"
       }
+      // on execute la FONCTION qui crée l'objet contact, recupere le tableau contenant la commande et l'envoi au serveur avec la methode POST
       saveOrder();
 
     } else {
@@ -176,7 +179,7 @@ totalQuantityPrice();
     }
   })
 }
-// on execute la FUNCTION
+// on execute la FUNCTION principale qui remplit le panier, ecoute la saisie du panier et envoi la commande au serveur
 showPanier();
 
 
