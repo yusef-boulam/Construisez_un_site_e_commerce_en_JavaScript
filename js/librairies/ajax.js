@@ -12,20 +12,20 @@ const getCanap = async (url) => {
 };
 
 //on utilise POST pour envoyer les commandes au serveur
-const postOrder = async (url, contact, arrayPanier) => {
-    console.log("contact", contact)
-    console.log(arrayPanier)
+const postOrder = async (url, order) => {
+    console.log("order", order)
 
     const response = await fetch(url, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contact, arrayPanier)
+        body: JSON.stringify(order)
     });
 
 //si retour code 201 on recupere l' id de la reponse et on la retourne
      if (response.status === 201) {
           const newObjet =  await response.json();
-          return newObjet.id
+          console.log(newObjet.orderId)
+          return newObjet.orderId
      }
 
     return -1

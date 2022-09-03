@@ -34,7 +34,7 @@ const validName = (value, elementErrorMsg, messageAlert) => {
     if (notEmpty(value, elementErrorMsg, messageAlert) === false) {
         return false;
     }
-    if (isValidRegex(value, elementErrorMsg, messageAlert, /^[\w\s\áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\-]{1,50}$/)===false){
+    if (isValidRegex(value, elementErrorMsg, messageAlert, /^[a-zA-Z\s\áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\-]{1,50}$/)===false){
         return false;
     }
     return true;
@@ -61,7 +61,7 @@ const validCity = (value, elementErrorMsg, messageAlert) => {
     if (notEmpty(value, elementErrorMsg, messageAlert) === false) {
         return false;
     }
-    if (isValidRegex(value, elementErrorMsg, messageAlert,/^[\pL\w\s\áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\-]{1,50}$/)===false){
+    if (isValidRegex(value, elementErrorMsg, messageAlert,/^[\pLa-zA-Z\s\áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\-]{1,50}$/)===false){
         return false;
     }
     return true;

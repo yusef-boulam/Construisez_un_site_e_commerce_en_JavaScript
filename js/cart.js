@@ -1,12 +1,7 @@
-
-
 //FONCTION principale qui remplit le panier, ecoute la saisie du panier et envoi la commande au serveur////////////////////////////////////////////////////////////
 const showPanier = async () => {
-
   // on recupere le tableau dans le local storage
   let arrayPanier = chargeArrayPanier();
-  console.log(arrayPanier);
-
   // si local storage vide on retourne sur la home page
   if (arrayPanier.length === 0) {
     alert("panier vide");
@@ -159,17 +154,19 @@ totalQuantityPrice();
           city: document.getElementById("city").value,
           email: document.getElementById("email").value,
         };
+        const order = {
+          contact, 
+          products: arrayPanier.map(product => product._id),
+      }
          // on charge le numberOrder si la commande c'est bien passé
-        const numberOrder = await postOrder('http://localhost:3000/api/products/order', contact, arrayPanier);
+        const numberOrder = await postOrder('http://localhost:3000/api/products/order', order);
         // on verifie la reception des datas
         if (numberOrder === -1) {
           alert("problème d'enregistrement sur le serveur. La commande n'a pas pu être envoyé, veuillez retenter ulterieurement");
           return;
         };
-       // si la requette c'est bien passé on pointe vers orderId lui attribue le numero de commande 
-        document.getElementById("orderId").innerHTML = numberOrder;
-        //on affiche orderFormulaire avec le numero de commande
-        location.href = "./orderFormulaire.js"
+       // si la requette c'est bien passé on se deplace sur la page confirmation en inserant le numéro de commande avec la methode querystring
+        location.href = `./confirmation.html?orderid=${numberOrder}`
       }
       // on execute la FONCTION qui crée l'objet contact, recupere le tableau contenant la commande et l'envoi au serveur avec la methode POST
       saveOrder();

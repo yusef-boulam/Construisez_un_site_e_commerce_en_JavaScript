@@ -110,11 +110,11 @@ const AjoutPanier = (datas) => {
       return;
     }
          // on modifie la quantité du panier
-      alert("MEME Produit");
+      alert("Quantité du panier modifié");
       produitIdentique.quantity += newObjetPanier.quantity;
       // sinon ajouter un nouvel objet dans le tableau
     } else {
-      alert("NOUVEAU produit");
+      alert("Article ajouté au panier");
       arrayPanier.push(newObjetPanier);
     }
     //on sauvegarde dans le local Storage
