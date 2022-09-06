@@ -6,7 +6,7 @@ const showOrderId = () => {
     // on recupere l'id dans l'Url
     const orderid = url.searchParams.get("orderid");
     console.log(orderid)
-     // si local storage vide on retourne sur la home page
+     // si acun numéro de commande on retourne sur la home page
      if (orderid === null) {
       alert("aucun numéro de commande présent");
       location.href = "./index.html"
